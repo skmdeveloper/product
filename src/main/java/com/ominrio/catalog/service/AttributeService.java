@@ -9,6 +9,6 @@ import com.ominrio.catalog.domain.Attribute;
 */
 public interface AttributeService {
 	
-   
+	 Attribute createAttribute(Attribute attribute) throws Exception;
 
 }

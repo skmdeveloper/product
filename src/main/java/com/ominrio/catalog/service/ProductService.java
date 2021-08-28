@@ -10,6 +10,10 @@ import com.ominrio.catalog.dto.ProductResponse;
 */
 public interface ProductService {
 	
-	
+	Product create(Product product) throws Exception;
+
+	ProductResponse getById(String id) throws Exception;
+
+	ProductResponse addCategory(Category category, String id) throws Exception;
 
 }
