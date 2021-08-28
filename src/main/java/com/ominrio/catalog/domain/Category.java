@@ -18,6 +18,7 @@ public class Category {
     @NotNull
     private String  categoryName;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "category",cascade = CascadeType.ALL)
     private List<Attribute> productAttributes;
 
@@ -67,4 +68,8 @@ public class Category {
     public void setProduct(Product product) {
         this.product = product;
     }
+
+	
+    
+    
 }

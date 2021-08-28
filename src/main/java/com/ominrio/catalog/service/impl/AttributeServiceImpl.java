@@ -30,7 +30,7 @@ public class AttributeServiceImpl implements AttributeService {
 	public Attribute createAttribute(Attribute attribute) throws Exception {
 		LOGGER.info("In create attribute method with request Attribute ::::: " + attribute);
 
-		if (attribute.getAttributeId() != null)
+		if (attribute.getId() != null)
 			throw new Exception("Attribute id is auto generated and can not be specified explicitly");
 
 		if (attribute.getAttributeName() == null)

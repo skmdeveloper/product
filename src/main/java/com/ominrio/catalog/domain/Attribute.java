@@ -2,6 +2,8 @@ package com.ominrio.catalog.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.stereotype.Indexed;
 
 import javax.persistence.*;
@@ -11,10 +13,14 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "attribute")
 public class Attribute {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long attributeId;
+	 @Id
+	    @GeneratedValue(generator = "UUID")
+	    @GenericGenerator(
+	            name = "UUID",
+	            strategy = "org.hibernate.id.UUIDGenerator"
+	    )
+	    @Column(name = "id",updatable = true, nullable = false)
+    private String id;
     @NotNull
     private String attributeName;
     @NotNull
@@ -30,24 +36,20 @@ public class Attribute {
     }
 
 
-	public Attribute(Long attributeId, @NotNull String attributeName, @NotNull String attributeValue,
-			Category category) {
-		super();
-		this.attributeId = attributeId;
-		this.attributeName = attributeName;
-		this.attributeValue = attributeValue;
-		this.category = category;
+
+
+	public String getId() {
+		return id;
 	}
 
 
-	public Long getAttributeId() {
-		return attributeId;
+
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 
-	public void setAttributeId(Long attributeId) {
-		this.attributeId = attributeId;
-	}
 
 
 	public String getAttributeName() {
@@ -79,12 +81,11 @@ public class Attribute {
 		this.category = category;
 	}
 
-
 	@Override
 	public String toString() {
-		return "Attribute [attributeId=" + attributeId + ", attributeName=" + attributeName + ", attributeValue="
-				+ attributeValue + ", category=" + category + "]";
+		return "Attribute [id=" + id + ", attributeName=" + attributeName + ", attributeValue=" + attributeValue
+				+ ", category=" + category + "]";
 	}
 
-    
+
 }

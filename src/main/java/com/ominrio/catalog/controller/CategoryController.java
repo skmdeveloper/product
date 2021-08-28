@@ -1,5 +1,6 @@
 package com.ominrio.catalog.controller;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.ominrio.catalog.domain.Attribute;
 import com.ominrio.catalog.domain.Category;
 import com.ominrio.catalog.service.CategoryService;
@@ -76,10 +78,15 @@ public class CategoryController {
             , @RequestBody String request) throws Exception {
         try {
             LOGGER.info("Category Create Request Body ::::: "+request);
+            
+            Type listType = new TypeToken<ArrayList<Attribute>>() {
+            }.getType();
 
-            List<Attribute> attributeList = gson.fromJson(request, ArrayList.class);
+            List<Attribute> attributeList = gson.fromJson(request,listType);
+            Category addAttributes = categoryService.addAttributes(attributeList,id);
+            String writeValueAsString = mapper.writeValueAsString(addAttributes);
 
-            return ResponseEntity.ok(mapper.writeValueAsString(categoryService.addAttributes(attributeList,id)));
+            return ResponseEntity.ok(mapper.writeValueAsString(addAttributes));
         }
         catch (Exception ex){
             return  ResponseEntity.badRequest().body(ex.getMessage());
